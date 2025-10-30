@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platter</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['"Source Serif 4"', 'serif'],
+                        'bebas': ['"Bebas Neue"', 'sans-serif'],
+                        'sans': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-scroll-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .custom-h-scrollbar {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-top: 16px;
+            border-radius: 2px;
+        }
+
+        .custom-h-scrollbar-thumb {
+            position: absolute;
+            left: 0;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+            cursor: pointer;
+        }
+
+        .custom-h-scrollbar-thumb:hover,
+        .custom-h-scrollbar-thumb:active {
+            height: 6px !important;
+            top: -1px;
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image-secondary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image-container:hover .product-image-secondary {
+            opacity: 1;
+        }
+
+        .product-image-container:hover .product-image {
+            opacity: 0;
+        }
+
+        .product-grid-hidden {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .product-grid-visible {
+            max-height: 3000px;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .star-rating {
+            color: #000;
+        }
+
+        @media (min-width: 768px) {
+            .product-scroll-container {
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 24px;
+            }
+
+            .product-card-desktop {
+                flex: 0 0 280px;
+                min-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-12 gap-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center md:text-left font-serif">Best Sellers</h1>
+            <a href="#" class="hidden lg:flex items-center text-sm font-medium hover:underline">
+                Shop All Best Sellers
+                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- mobile -->
+        <div class="md:hidden">
+            <div class="grid grid-cols-2 gap-4">
+                <article class="group">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-yellow-300">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/annas-arfnahri-qgwtjgWLA6c-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/avery-evans-RkCvkHgfiqc-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">OUTSIDE VIBES T-SHIRT SUNSHINE</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="group">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-gray-100">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/annas-arfnahri-qgwtjgWLA6c-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/avery-evans-RkCvkHgfiqc-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">HIKE BOTTLE OUTSIDE VIBES</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="group">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-red-600">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/eyekeeper-eyekeeper-M49e3U8v4iU-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/glenna-haug-aYrOtqypmho-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">REST IN NATURE T-SHIRT CHARCOAL</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="group">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-pink-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/harper-sunday-YxEnaBDmj3w-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/jacinta-christos-4wO5GON3mg4-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">OUTSIDE VIBES CAP FOREST GREEN</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+            </div>
+
+            <div id="product-grid-hidden" class="product-grid-hidden">
+                <div class="grid grid-cols-2 gap-4 mt-4">
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-purple-200">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/laura-jaeger-c65ApeXvqlA-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/laura-jaeger-YVPByJmyLD8-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">REST IN NATURE T-SHIRT CHARCOAL</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-blue-300">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/reuben-mansell-DOlMouWbV-I-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/reuben-mansell-oFgXybl7z3E-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">MOUNTAIN WATCH EDITION</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-green-200">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/reuben-mansell-ZiiMjTnwohE-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/annas-arfnahri-qgwtjgWLA6c-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">ADVENTURE SHADES FOREST</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-orange-200">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/avery-evans-RkCvkHgfiqc-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/eyekeeper-eyekeeper-M49e3U8v4iU-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">TRAIL RUNNER PRO ORANGE</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-indigo-300">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/glenna-haug-aYrOtqypmho-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/harper-sunday-YxEnaBDmj3w-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">URBAN SPORT SNEAKER</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+
+
+                    <article class="group">
+                        <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-teal-200">
+                            <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                            <img class="product-image w-full h-full object-cover"
+                                 src="img/jacinta-christos-4wO5GON3mg4-unsplash.jpg"
+                                 alt="">
+                            <img class="product-image-secondary w-full h-full object-cover"
+                                 src="img/laura-jaeger-c65ApeXvqlA-unsplash.jpg"
+                                 alt="">
+                        </div>
+                        <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">ADVENTURE PACK TEAL</h2>
+                        <div class="flex items-center mb-2">
+                            <div class="star-rating flex">★★★★★</div>
+                            <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                        </div>
+                        <p class="text-lg font-bold">$104.95</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center">
+                <button id="show-more-btn" class="bg-black text-white px-8 py-4 rounded-full text-sm font-bold hover:bg-gray-800 transition-colors w-full max-w-sm">
+                    Show More
+                </button>
+            </div>
+        </div>
+
+        <!-- desktop -->
+        <div class="hidden md:block">
+            <div id="product-scroll-container" class="product-scroll-container scroll-smooth snap-x snap-mandatory">
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-yellow-300">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/laura-jaeger-YVPByJmyLD8-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/reuben-mansell-DOlMouWbV-I-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">OUTSIDE VIBES T-SHIRT SUNSHINE</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-gray-100">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/reuben-mansell-oFgXybl7z3E-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/reuben-mansell-ZiiMjTnwohE-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">HIKE BOTTLE OUTSIDE VIBES</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-red-600">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/annas-arfnahri-qgwtjgWLA6c-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/avery-evans-RkCvkHgfiqc-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">REST IN NATURE T-SHIRT CHARCOAL</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-pink-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/eyekeeper-eyekeeper-M49e3U8v4iU-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/glenna-haug-aYrOtqypmho-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">OUTSIDE VIBES CAP FOREST GREEN</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-purple-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/harper-sunday-YxEnaBDmj3w-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/jacinta-christos-4wO5GON3mg4-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">REST IN NATURE T-SHIRT CHARCOAL</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-blue-300">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/laura-jaeger-c65ApeXvqlA-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/laura-jaeger-YVPByJmyLD8-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">MOUNTAIN WATCH EDITION</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-green-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/reuben-mansell-DOlMouWbV-I-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/reuben-mansell-oFgXybl7z3E-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">ADVENTURE SHADES FOREST</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-orange-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/reuben-mansell-ZiiMjTnwohE-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/annas-arfnahri-qgwtjgWLA6c-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">TRAIL RUNNER PRO ORANGE</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-indigo-300">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <span class="absolute top-3 right-3 bg-green-800 text-white rounded-full px-3 py-1 text-xs font-bold uppercase z-10 font-bebas tracking-wide">Save 10%</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/avery-evans-RkCvkHgfiqc-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/eyekeeper-eyekeeper-M49e3U8v4iU-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">URBAN SPORT SNEAKER</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+
+
+                <article class="product-card-desktop group snap-start">
+                    <div class="product-image-container relative mb-4 aspect-square rounded-lg overflow-hidden bg-teal-200">
+                        <span class="absolute top-3 left-3 bg-white border-2 border-black rounded-full px-3 py-1 text-xs  uppercase z-10 font-bebas tracking-wide">Best Seller</span>
+                        <img class="product-image w-full h-full object-cover"
+                             src="img/glenna-haug-aYrOtqypmho-unsplash.jpg"
+                             alt="">
+                        <img class="product-image-secondary w-full h-full object-cover"
+                             src="img/harper-sunday-YxEnaBDmj3w-unsplash.jpg"
+                             alt="">
+                    </div>
+                    <h2 class="text-lg uppercase mb-2 font-bebas tracking-wide">ADVENTURE PACK TEAL</h2>
+                    <div class="flex items-center mb-2">
+                        <div class="star-rating flex">★★★★★</div>
+                        <span class="ml-2 text-xs text-gray-600">1234 Reviews</span>
+                    </div>
+                    <p class="text-lg font-bold">$104.95</p>
+                </article>
+            </div>
+
+            <div class="custom-h-scrollbar">
+                <div class="custom-h-scrollbar-thumb"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // mobile show/hide
+        const showMoreBtn = document.getElementById('show-more-btn');
+        const hiddenGrid = document.getElementById('product-grid-hidden');
+        let isExpanded = false;
+
+        if (showMoreBtn && hiddenGrid) {
+            showMoreBtn.addEventListener('click', function() {
+                isExpanded = !isExpanded;
+
+                if (isExpanded) {
+                    hiddenGrid.classList.remove('product-grid-hidden');
+                    hiddenGrid.classList.add('product-grid-visible');
+                    showMoreBtn.textContent = 'Show Less';
+                } else {
+                    hiddenGrid.classList.remove('product-grid-visible');
+                    hiddenGrid.classList.add('product-grid-hidden');
+                    showMoreBtn.textContent = 'Show More';
+                    document.querySelector('h1').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // custom scrollbar
+        const scrollContainer = document.getElementById('product-scroll-container');
+        const scrollbarThumb = document.querySelector('.custom-h-scrollbar-thumb');
+        let isDragging = false;
+
+        if (scrollContainer && scrollbarThumb) {
+            function updateScrollbar() {
+                const containerWidth = scrollContainer.offsetWidth;
+                const scrollWidth = scrollContainer.scrollWidth;
+                const scrollLeft = scrollContainer.scrollLeft;
+                const thumbWidth = Math.max((containerWidth / scrollWidth) * containerWidth, 50);
+                const scrollPercentage = scrollLeft / (scrollWidth - containerWidth);
+                const thumbLeft = scrollPercentage * (containerWidth - thumbWidth);
+
+                scrollbarThumb.style.width = thumbWidth + 'px';
+                scrollbarThumb.style.left = thumbLeft + 'px';
+            }
+
+            function handleScrollbarDrag(e) {
+                if (!isDragging) return;
+
+                const containerWidth = scrollContainer.offsetWidth;
+                const scrollWidth = scrollContainer.scrollWidth;
+                const scrollbarRect = scrollbarThumb.parentElement.getBoundingClientRect();
+                const clickPosition = e.clientX - scrollbarRect.left;
+                const thumbWidth = parseFloat(scrollbarThumb.style.width);
+                const scrollPercentage = (clickPosition - thumbWidth / 2) / (containerWidth - thumbWidth);
+
+                scrollContainer.scrollLeft = scrollPercentage * (scrollWidth - containerWidth);
+            }
+
+            scrollbarThumb.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', handleScrollbarDrag);
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            scrollContainer.addEventListener('scroll', updateScrollbar);
+            window.addEventListener('resize', updateScrollbar);
+            updateScrollbar();
+        }
+    </script>
+</body>
+</html>
