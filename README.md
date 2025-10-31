@@ -2,8 +2,8 @@
 
 Hi there! Thank you for reviewing my application.
 
-[Preview](https://martincenturion.com/platter)
-[Portfolio](https://bento.me/alfonsomartin)
+- [Preview](https://martincenturion.com/platter)
+- [Portfolio](https://bento.me/alfonsomartin)
 
 Here is a quick walkthrough of what I did:
 
